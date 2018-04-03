@@ -1,1 +1,30 @@
 <!-- Put your News Aggregator new.erb code here -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Slacker News</title>
+  </head>
+
+  <body>
+    <h2>Slacker News</h2>
+    <h3>The Only News We Bothered to Share</h3>
+
+    <form action="/articles" method="post">
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+      </div>
+      <div>
+        <label for "url"> URL: </label>
+        <input type="text" id="url" name="url">
+      </div>
+      <div>
+        <label for "description"> Description: </label>
+        <input type="text" id="description" name="description">
+      </div>
+
+      <input type="submit">
+    </form>
+
+  </body>
+</html>

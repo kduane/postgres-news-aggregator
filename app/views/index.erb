@@ -1,1 +1,27 @@
 <!-- Put your News Aggregator articles.erb code here -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Slacker News</title>
+  </head>
+
+  <body>
+    <h2>Slacker News</h2>
+    <h3>The Only News We Bothered to Share</h3>
+
+    <ul>
+      <% @articles.each do |article| %>
+        <li> Title: <%= article[0] %>
+            <br> Url: <a href ="article[1]"> <%= article[1] %> </a>
+            <br>Description: <%= article[-1] %>
+            <br>
+       </li>
+      <% end %>
+    </ul>
+
+    <p> Have an article to share, slacker?
+      <a href='/articles/new'> Submit it here</a>
+    </p>
+
+  </body>
+</html>
