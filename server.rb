@@ -1,6 +1,8 @@
 require "sinatra"
 require "pg"
 require_relative "./app/models/article"
+require "pry" if development? || test?
+require "sinatra/reloader" if development?
 
 set :bind, '0.0.0.0'  # bind to all interfaces
 set :views, File.join(File.dirname(__FILE__), "app", "views")
@@ -23,3 +25,29 @@ def db_connection
 end
 
 # Put your News Aggregator server.rb route code here
+get '/' do
+  @articles = []
+
+  CSV.foreach("articles.csv") do |row|
+    @articles << row
+  end
+  # binding.pry
+  erb :index
+end
+
+get '/articles/new' do
+
+  erb :new
+end
+
+post '/articles' do
+  title = params['title']
+  url = params['url']
+  description = params['description']
+  # binding.pry
+  CSV.open("articles.csv", "a+") do |csv|
+    csv << [title, url, description]
+  end
+
+  redirect '/'
+end
