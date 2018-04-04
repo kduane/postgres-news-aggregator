@@ -11,9 +11,9 @@
 
     <ul>
       <% @articles.each do |article| %>
-        <li> Title: <%= article[title] %>
-            <br> Url: <a href ="article[url]"> <%= article[url] %> </a>
-            <br>Description: <%= article[description] %>
+        <li> Title: <%= article["title"] %>
+            <br> Url: <a href ="article["url"]"> <%= article["url"] %> </a>
+            <br>Description: <%= article["description"] %>
             <br>
        </li>
       <% end %>

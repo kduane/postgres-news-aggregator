@@ -30,11 +30,10 @@ get '/' do
   db_connection do |conn|
     @results = conn.exec("SELECT id, title, url, description FROM articles")
   end
-  binding.pry
   @results.to_a.each do |result|
     @articles << result
   end
-
+  binding.pry
   erb :index
 end
 
@@ -48,7 +47,7 @@ post '/articles' do
   url = params['url']
   description = params['description']
   db_connection do |conn|
-    conn.exec_params("INSERT INTO articles (title, url, description) VALUES ($1)", [title, url, description])
+    conn.exec_params("INSERT INTO articles (title, url, description) VALUES ($1, $2, $3)", [title, url, description])
   end
   redirect '/'
 end
