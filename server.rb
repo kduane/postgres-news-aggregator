@@ -26,6 +26,10 @@ end
 
 # Put your News Aggregator server.rb route code here
 get '/' do
+  redirect '/articles'
+end
+
+get '/articles' do
   @articles = []
   db_connection do |conn|
     @results = conn.exec("SELECT id, title, url, description FROM articles")
@@ -33,7 +37,7 @@ get '/' do
   @results.to_a.each do |result|
     @articles << result
   end
-  binding.pry
+  # binding.pry
   erb :index
 end
 
@@ -44,10 +48,10 @@ end
 
 post '/articles' do
   title = params['title']
-  url = params['url']
-  description = params['description']
+  url = params['URL']
+  description = params['Description']
   db_connection do |conn|
     conn.exec_params("INSERT INTO articles (title, url, description) VALUES ($1, $2, $3)", [title, url, description])
   end
-  redirect '/'
+  redirect '/articles'
 end
