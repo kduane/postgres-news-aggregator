@@ -27,11 +27,14 @@ end
 # Put your News Aggregator server.rb route code here
 get '/' do
   @articles = []
-
-  CSV.foreach("articles.csv") do |row|
-    @articles << row
+  db_connection do |conn|
+    @results = conn.exec("SELECT id, title, url, description FROM articles")
   end
-  # binding.pry
+  binding.pry
+  @results.to_a.each do |result|
+    @articles << result
+  end
+
   erb :index
 end
 
@@ -44,10 +47,8 @@ post '/articles' do
   title = params['title']
   url = params['url']
   description = params['description']
-  # binding.pry
-  CSV.open("articles.csv", "a+") do |csv|
-    csv << [title, url, description]
+  db_connection do |conn|
+    conn.exec_params("INSERT INTO articles (title, url, description) VALUES ($1)", [title, url, description])
   end
-
   redirect '/'
 end
